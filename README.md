@@ -11,7 +11,7 @@ Free, MIT-licensed browser extension compatible with Salesforce Classic and Ligh
 4. Refresh your signed-in CRM tab. Pin the toolbar action if desired.
 
 ## Use
-Click the dock to switch. Drag vertically to move it; hover to enlarge it. The position is saved locally. The toolbar popup is an alternative. Production, sandbox and trailblaze My Domain formats are supported. Both destinations open home/entry pages, not necessarily the current record. Save changes before switching. Access to both interfaces must be permitted by your administrator. Private browsing requires explicit browser permission.
+Click the dock to switch. Drag vertically to move it; hover to enlarge it. The position is saved locally. The toolbar popup is an alternative. Production, sandbox and trailblaze My Domain formats are supported. Version 1.6.2 uses native Salesforce switching endpoints on the current origin; Salesforce controls the final redirect. The first-time switching fix was verified in a fresh Trailhead Playground. These endpoints may change; the current record is not necessarily preserved. Save changes before switching. Access to both interfaces must be permitted by your administrator. Private browsing requires explicit browser permission.
 
 ## Development
 No build dependencies. Run `node tests/navigation.cjs` and `node --check floating.js && node --check popup.js`. Build the store archive using `python scripts/package.py`. See [security notes](SECURITY.md), [privacy policy](docs/privacy-policy.md), and [contributing](CONTRIBUTING.md).

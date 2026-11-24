@@ -19,9 +19,11 @@ function switchTarget(url, currentInterface) {
   const source = orgDomain(url);
   if (!source || detectInterface(url) !== currentInterface) throw new Error('Unsupported Salesforce page.');
   const toClassic = currentInterface === 'lightning';
-  const target = new URL('https://' + source.org + (toClassic ? '.my.salesforce.com/?isdtp=p1' : '.lightning.force.com/lightning/page/home'));
+  const target = new URL('/ltng/switcher', url.origin);
+  target.searchParams.set('destination', toClassic ? 'classic' : 'lex-campaign');
+  if (toClassic) target.searchParams.set('referrer', '/lightning/page/home');
   const destination = orgDomain(target);
-  if (!destination || destination.org !== source.org || destination.lightning === toClassic) throw new Error('Invalid destination.');
+  if (!destination || destination.org !== source.org || target.origin !== url.origin || target.pathname !== '/ltng/switcher') throw new Error('Invalid destination.');
   return target.href;
 }
 

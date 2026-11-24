@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CRM Interface Switcher",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Switch between Salesforce Classic and Lightning with a single click using a draggable dock icon.",
   "permissions": [
     "activeTab",

@@ -1,4 +1,8 @@
 # Changelog
+## 1.6.2 — 2026-11-24
+- Use native same-origin Salesforce switching endpoints in popup and dock.
+- Fix first-time switching in newly created Trailhead Playgrounds (verified in browser testing).
+- Retain existing permissions and interface controls. Update navigation regression tests.
 ## 1.6.1 — 2026-11-24
 - Support trailblaze My Domain formats in both popup and dock.
 - Preserve 1.6.0 independent branding and 1.5 security controls.
