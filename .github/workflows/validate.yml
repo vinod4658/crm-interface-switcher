@@ -1,0 +1,36 @@
+name: Validate Extension
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate manifest
+        run: python3 -m json.tool manifest.json
+
+      - name: Validate floating script
+        run: node --check floating.js
+
+      - name: Validate popup script
+        run: node --check popup.js
+
+      - name: Run navigation tests
+        run: node tests/navigation.cjs
