@@ -1,0 +1,2 @@
+# Contributing
+Fork, create a branch, test changes and open a pull request. Keep permissions minimal, avoid dependencies/remote code, preserve same-org navigation and add regression tests. Test on non-sensitive developer orgs. Contributions to original project code are under MIT; submit only material you have rights to license. Never include private URLs, credentials or unredacted screenshots. Describe tests and limitations in your PR.
