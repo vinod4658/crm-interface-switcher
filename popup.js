@@ -7,8 +7,8 @@ const messageEl = document.getElementById('message');
 
 function orgDomain(url) {
   if (url.protocol !== 'https:' || url.port || url.username || url.password) return null;
-  const match = /^([a-z0-9-]+(?:\.(?:sandbox|trailblaze))?)\.(my\.salesforce\.com|lightning\.force\.com)$/.exec(url.hostname);
-  return match ? {org: match[1], lightning: match[2] === 'lightning.force.com'} : null;
+  const match = /^([a-z0-9-]+(?:\.(?:sandbox|trailblaze))?)\.(my\.salesforce\.com|my\.salesforce-setup\.com|lightning\.force\.com)$/.exec(url.hostname);
+  return match ? {org: match[1], lightning: match[2] !== 'my.salesforce.com', setup: match[2] === 'my.salesforce-setup.com'} : null;
 }
 function detectInterface(url) {
   const domain = orgDomain(url);
@@ -19,11 +19,12 @@ function switchTarget(url, currentInterface) {
   const source = orgDomain(url);
   if (!source || detectInterface(url) !== currentInterface) throw new Error('Unsupported Salesforce page.');
   const toClassic = currentInterface === 'lightning';
-  const target = new URL('/ltng/switcher', url.origin);
+  const expectedOrigin = source.setup ? `https://${source.org}.lightning.force.com` : url.origin;
+  const target = new URL('/ltng/switcher', expectedOrigin);
   target.searchParams.set('destination', toClassic ? 'classic' : 'lex-campaign');
   if (toClassic) target.searchParams.set('referrer', '/lightning/page/home');
   const destination = orgDomain(target);
-  if (!destination || destination.org !== source.org || target.origin !== url.origin || target.pathname !== '/ltng/switcher') throw new Error('Invalid destination.');
+  if (!destination || destination.org !== source.org || target.origin !== expectedOrigin || target.pathname !== '/ltng/switcher') throw new Error('Invalid destination.');
   return target.href;
 }
 
